@@ -3,20 +3,94 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cover Snap</title>
+<title>Neon Coast Cover Studio — GTA-style cover maker</title>
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 <main class="app">
-  <section class="controls">
-    <h1>Cover Snap</h1>
-    <p>A photo and a caption, made into a square cover.</p>
-    <label>Photo <input id="photo" type="file" accept="image/*"></label>
-    <label>Caption <input id="caption" type="text" maxlength="40" value="Sunset Heist"></label>
-    <button id="export" type="button">Export PNG 1080 x 1080</button>
+  <section class="controls" aria-label="Cover controls">
+    <h1>Neon Coast <span>Cover Studio</span></h1>
+    <p class="tagline">Turn your photos into a multi-panel GTA-style cover. Everything stays on your machine — no uploads, no network.</p>
+
+    <fieldset>
+      <legend>1 · Layout</legend>
+      <div id="layouts" class="btnrow"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>2 · Photos</legend>
+      <div class="row">
+        <label class="filebtn">Add photos
+          <input id="addPhoto" type="file" accept="image/*" multiple hidden>
+        </label>
+        <button id="useSamples" type="button">Use samples</button>
+        <button id="fillAll" type="button">One photo, all panels</button>
+      </div>
+      <div id="photoTray" class="tray"></div>
+      <p class="hint">Click a photo above, then click a panel on the cover to place it. Drag a panel to move its photo, scroll over it to zoom.</p>
+      <p id="panelLabel" class="panel-label">Panel 1 of 4</p>
+      <label>Zoom <span id="zoomVal">1.00x</span>
+        <input id="zoom" type="range" min="1" max="3" step="0.01" value="1">
+      </label>
+      <label>Position X <input id="posX" type="range" min="0" max="1" step="0.01" value="0.5"></label>
+      <label>Position Y <input id="posY" type="range" min="0" max="1" step="0.01" value="0.5"></label>
+      <button id="clearPanel" type="button">Clear this panel</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>3 · Grade</legend>
+      <div id="grades" class="btnrow"></div>
+      <label>Tint strength <span id="tintVal">70%</span>
+        <input id="tint" type="range" min="0" max="1" step="0.05" value="0.7">
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>4 · Lettering</legend>
+      <label>Title <input id="title" type="text" maxlength="24" value="Neon Shore"></label>
+      <label>Subtitle <input id="subtitle" type="text" maxlength="40" value="Vice nights, your story"></label>
+      <label>Badge <input id="badge" type="text" maxlength="16" value="Est. 2026"></label>
+      <label>Heat (stars)
+        <select id="stars">
+          <option value="0">0 stars</option>
+          <option value="1">1 star</option>
+          <option value="2">2 stars</option>
+          <option value="3">3 stars</option>
+          <option value="4" selected>4 stars</option>
+          <option value="5">5 stars</option>
+        </select>
+      </label>
+      <div class="btnrow">
+        <button type="button" data-title="Neon Shore|Vice nights, your story">Neon Shore</button>
+        <button type="button" data-title="Night Shift|The city never clocks out">Night Shift</button>
+        <button type="button" data-title="Pier Pressure|Neon tides, midnight rides">Pier Pressure</button>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>5 · Effects</legend>
+      <label class="check"><input id="grain" type="checkbox" checked> Film grain</label>
+      <label class="check"><input id="vignette" type="checkbox" checked> Vignette</label>
+      <label class="check"><input id="halftone" type="checkbox" checked> Halftone title block</label>
+      <label class="check"><input id="ink" type="checkbox" checked> Panel ink &amp; bands</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>6 · Export PNG</legend>
+      <div id="exports" class="btnrow"></div>
+      <button id="exportAll" type="button" class="primary">Export all three sizes</button>
+      <div class="row">
+        <button id="undo" type="button" disabled>Undo</button>
+        <button id="redo" type="button" disabled>Redo</button>
+      </div>
+    </fieldset>
+
     <p id="status" role="status"></p>
+    <p class="fineprint">Original art only: no Rockstar logo, artwork or font. Lettering is Anton &amp; Pacifico (SIL OFL), vendored in app/fonts/.</p>
   </section>
-  <canvas id="cover" width="1080" height="1080" aria-label="The cover"></canvas>
+  <section class="preview">
+    <canvas id="cover" width="960" height="960" aria-label="The cover preview"></canvas>
+  </section>
 </main>
 <script type="module" src="./src/main.js"></script>
 </body>

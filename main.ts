@@ -10,6 +10,9 @@
 // Serve it locally with `node serve.ts`, then open http://localhost:8080.
 // Outside the grader's container, MAKEFUN_OUTPUT_DIR stands in for /output:
 //   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
+// Neon Coast Cover Studio (built in this session): the app above is the
+// multi-panel cover maker in app/ — six layouts, five grades, per-panel
+// photos, Anton/Pacifico lettering and three one-click PNG exports.
 
 import { cpSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
